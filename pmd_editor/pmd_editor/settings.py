@@ -69,16 +69,19 @@ INSTALLED_APPS = [
 ]
 
 # REST_FRAMEWORK = {
-#     "DEFAULT_PERMISSION_CLASSES": [
-#         "rest_framework_api_key.permissions.HasAPIKey",
-#     ],
-#     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
-#     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     "rest_framework_api_key.permissions.HasAPIKey",
+    # ],
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    # 'DEFAULT_RENDERER_CLASSES': [
+    #     'rest_framework.renderers.JSONRenderer',
+    #     'rest_framework.renderers.BrowsableAPIRenderer',
+    # ],
 # }
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
