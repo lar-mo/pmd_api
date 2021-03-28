@@ -22,17 +22,17 @@ def get_secret(setting, secrets=secrets):
 
 def pmdv1dev(request):
     response = requests.get("http://127.0.0.1:8000/strings/v1/")
-    return HttpResponse(response)
+    return HttpResponse(response, content_type='application/json')
 
 def pmdv2DevGetStrings(request):
     pmd_dev_v2_api_key = get_secret('pmd_dev_v2_api_key')
     response = requests.get("http://127.0.0.1:8000/strings/v2/", headers={'Authorization': 'Api-Key '+pmd_dev_v2_api_key})
-    return HttpResponse(response)
+    return HttpResponse(response, content_type='application/json')
 
 def pmdv2ProdGetStrings(request):
     pmd_prod_v2_api_key = get_secret('pmd_prod_v2_api_key')
     response = requests.get("https://api.pattymdesigns.com/strings/v2/", headers={'Authorization': 'Api-Key '+pmd_prod_v2_api_key})
-    return HttpResponse(response)
+    return HttpResponse(response, content_type='application/json')
 
 def flickrApiGetArrangements(request):
     flickr_api_key = get_secret('flickr_api_key')
@@ -47,7 +47,7 @@ def flickrApiGetArrangements(request):
             'extras': 'date_upload'
         }
     )
-    return HttpResponse(response)
+    return HttpResponse(response, content_type='application/json')
 
 def flickrApiGetContainers(request):
     flickr_api_key = get_secret('flickr_api_key')
@@ -62,7 +62,7 @@ def flickrApiGetContainers(request):
             'extras': 'date_upload'
         }
     )
-    return HttpResponse(response)
+    return HttpResponse(response, content_type='application/json')
 
 def flickrApiGetSizes(request, photo_id):
     flickr_api_key = get_secret('flickr_api_key')
@@ -75,7 +75,7 @@ def flickrApiGetSizes(request, photo_id):
             'nojsoncallback': 1
         }
     )
-    return HttpResponse(response)
+    return HttpResponse(response, content_type='application/json')
 
 def flickrApiGetInfo(request, photo_id):
     flickr_api_key = get_secret('flickr_api_key')
@@ -88,7 +88,7 @@ def flickrApiGetInfo(request, photo_id):
             'nojsoncallback': 1
         }
     )
-    return HttpResponse(response)
+    return HttpResponse(response, content_type='application/json')
 
 def bloggerApiGetLatestPost(request):
     blogger_apiv3 = get_secret('blogger_apiv3')
@@ -101,4 +101,4 @@ def bloggerApiGetLatestPost(request):
             'orderBy': 'PUBLISHED',
         }
     )
-    return HttpResponse(response)
+    return HttpResponse(response, content_type='application/json')
