@@ -35,7 +35,7 @@ def get_secret(setting, secrets=secrets):
 SECRET_KEY = get_secret('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ## https://dzone.com/articles/how-to-fix-django-cors-error
 ## Option A:
@@ -43,11 +43,13 @@ DEBUG = True
 # CORS_ORIGIN_ALLOW_ALL = True
 
 ## Option B:
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','.pattymdesigns.com','.pattymcmahan.com']
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
        'http://localhost',
+       'https://www.pattymdesigns.com',
+       'https://www.pattymcmahan.com'
 )
 
 # Application definition
@@ -116,7 +118,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': get_secret('MYSQL_DB'),
+#         'HOST': get_secret('MYSQL_HOST'),
+#         'PORT': '3306',
+#         'USER': get_secret('MYSQL_USER'),
+#         'PASSWORD': get_secret('MYSQL_PWD')
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
