@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from django.http import HttpResponse
 
 import requests
@@ -32,7 +31,7 @@ def pmdv2DevGetStrings(request):
 
 def pmdv2ProdGetStrings(request):
     pmd_prod_v2_api_key = get_secret('pmd_prod_v2_api_key')
-    response = requests.get("http://api.pattymdesigns.com/strings/v2/", headers={'Authorization': 'Api-Key '+pmd_prod_v2_api_key})
+    response = requests.get("https://api.pattymdesigns.com/strings/v2/", headers={'Authorization': 'Api-Key '+pmd_prod_v2_api_key})
     return HttpResponse(response)
 
 def flickrApiGetArrangements(request):
