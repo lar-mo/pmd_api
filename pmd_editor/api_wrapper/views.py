@@ -25,13 +25,23 @@ def pmdv1dev(request):
     return HttpResponse(response, content_type='application/json')
 
 def pmdv2DevGetStrings(request):
-    pmd_dev_v2_api_key = get_secret('pmd_dev_v2_api_key')
-    response = requests.get("http://127.0.0.1:8000/strings/v2/", headers={'Authorization': 'Api-Key '+pmd_dev_v2_api_key})
+    pmd_dev_api_key = get_secret('pmd_dev_api_key')
+    response = requests.get("http://127.0.0.1:8000/strings/v2/", headers={'Authorization': 'Api-Key '+pmd_dev_api_key})
     return HttpResponse(response, content_type='application/json')
 
 def pmdv2ProdGetStrings(request):
-    pmd_prod_v2_api_key = get_secret('pmd_prod_v2_api_key')
-    response = requests.get("https://api.pattymdesigns.com/strings/v2/", headers={'Authorization': 'Api-Key '+pmd_prod_v2_api_key})
+    pmd_prod_api_key = get_secret('pmd_prod_api_key')
+    response = requests.get("https://api.pattymdesigns.com/strings/v2/", headers={'Authorization': 'Api-Key '+pmd_prod_api_key})
+    return HttpResponse(response, content_type='application/json')
+
+def pmdv3DevGetStrings(request):
+    pmd_dev_api_key = get_secret('pmd_dev_api_key')
+    response = requests.get("http://127.0.0.1:8000/strings/v3/", headers={'Authorization': 'Api-Key '+pmd_dev_api_key})
+    return HttpResponse(response, content_type='application/json')
+
+def pmdv3ProdGetStrings(request):
+    pmd_prod_api_key = get_secret('pmd_prod_api_key')
+    response = requests.get("https://api.pattymdesigns.com/strings/v3/", headers={'Authorization': 'Api-Key '+pmd_prod_api_key})
     return HttpResponse(response, content_type='application/json')
 
 def flickrApiGetArrangements(request):
