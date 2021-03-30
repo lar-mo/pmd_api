@@ -7,6 +7,7 @@ from pmd_strings import views
 router = routers.DefaultRouter()
 router.register('strings/v1', views.StringViewSetv1)
 router.register('strings/v2', views.StringViewSetv2)
+router.register('strings/v3', views.StringViewSetv3)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
