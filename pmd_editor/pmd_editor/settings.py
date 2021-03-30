@@ -35,7 +35,7 @@ def get_secret(setting, secrets=secrets):
 SECRET_KEY = get_secret('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True # set to False before commiting
 
 ## https://dzone.com/articles/how-to-fix-django-cors-error
 ## Option A:
@@ -124,6 +124,9 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
+#         'OPTIONS': {
+#           'sql_mode': 'STRICT_ALL_TABLES',
+#         },
 #         'NAME': get_secret('MYSQL_DB'),
 #         'HOST': get_secret('MYSQL_HOST'),
 #         'PORT': '3306',
