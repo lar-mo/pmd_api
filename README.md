@@ -15,4 +15,4 @@
   * _pmd_strings_
   * _Flickr_
   * _Blogger_ (blogspot)
-* It serves the API response without exposing the various API keys on the front end.
+* It serves the API responses without exposing the various API keys on the front end.
