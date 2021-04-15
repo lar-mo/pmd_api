@@ -12,5 +12,5 @@
 ### api_wrapper
 
 * This is the API wrapper app for the three APIs that provide content for pattymdesigns.com.
-** _pmd_strings, Flickr, and Blogger (blogspot)_.
+* * _pmd_strings, Flickr, and Blogger (blogspot)_.
 * It serves the API response without exposing the various API keys on the front end.
