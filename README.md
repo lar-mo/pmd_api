@@ -2,9 +2,6 @@
 
 ## This is a Django project with two apps:
 
-1. pmd_strings
-2. api_wrapper
-
 ### pmd_strings
 
 * This is a REST API that provides the content for pattymdesigns.com.
