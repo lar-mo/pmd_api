@@ -45,37 +45,50 @@ def pmdv3ProdGetStrings(request):
     return HttpResponse(response, content_type='application/json')
 
 def flickrApiGetArrangements(request):
-    flickr_api_key = get_secret('flickr_api_key')
+    flickr_user_id = get_secret('my_flickr_user_id')
+    flickr_arrangements_photoset_id = get_secret('my_flickr_arrangements_photoset_id')
+    flickr_api_key = get_secret('my_flickr_api_key')
     response = requests.get('https://api.flickr.com/services/rest/?',
         params = {
             'method': 'flickr.photosets.getPhotos',
-            'user_id': '67858665@N00',
-            'photoset_id': '72157718545940976',
+            'user_id': flickr_user_id,
+            'photoset_id': flickr_arrangements_photoset_id,
             'api_key': flickr_api_key,
             'format': 'json',
             'nojsoncallback': 1,
             'extras': 'date_upload'
         }
     )
-    return HttpResponse(response, content_type='application/json')
+    arrangements_json = response.json().pop('photoset').pop('photo')
+    arrangements_ids = [ arrangements_json[i].pop('id') for i in range(len(arrangements_json)) ]
+    arrangements_json_sanitized = json.dumps(arrangements_ids, indent = 4)
+    # The following line of code combines a list comprehension (63) AND a data structure conversion (64) into a one-liner
+    ### photo_json_sanitized = json.dumps([ photo_json[i].pop('id') for i in range(len(photo_json)) ], indent = 4)
+    return HttpResponse(arrangements_json_sanitized, content_type='application/json')
+    # return HttpResponse(response, content_type='application/json') # OG: returns everything including sensitive data
 
 def flickrApiGetContainers(request):
-    flickr_api_key = get_secret('flickr_api_key')
+    flickr_user_id = get_secret('my_flickr_user_id')
+    flickr_containers_photoset_id = get_secret('my_flickr_containers_photoset_id')
+    flickr_api_key = get_secret('my_flickr_api_key')
     response = requests.get('https://api.flickr.com/services/rest/?',
         params = {
             'method': 'flickr.photosets.getPhotos',
-            'user_id': '67858665@N00',
-            'photoset_id': '72157718562548688',
+            'user_id': flickr_user_id,
+            'photoset_id': flickr_containers_photoset_id,
             'api_key': flickr_api_key,
             'format': 'json',
             'nojsoncallback': 1,
             'extras': 'date_upload'
         }
     )
-    return HttpResponse(response, content_type='application/json')
+    containers_json = response.json().pop('photoset').pop('photo')
+    containers_ids = [ containers_json[i].pop('id') for i in range(len(containers_json)) ]
+    containers_json_sanitized = json.dumps(containers_ids, indent = 4)
+    return HttpResponse(containers_json_sanitized, content_type='application/json')
 
 def flickrApiGetSizes(request, photo_id):
-    flickr_api_key = get_secret('flickr_api_key')
+    flickr_api_key = get_secret('my_flickr_api_key')
     response = requests.get('https://api.flickr.com/services/rest/?',
         params = {
             'method': 'flickr.photos.getSizes',
@@ -88,7 +101,7 @@ def flickrApiGetSizes(request, photo_id):
     return HttpResponse(response, content_type='application/json')
 
 def flickrApiGetInfo(request, photo_id):
-    flickr_api_key = get_secret('flickr_api_key')
+    flickr_api_key = get_secret('my_flickr_api_key')
     response = requests.get('https://api.flickr.com/services/rest/?',
         params = {
             'method': 'flickr.photos.getInfo',
@@ -98,7 +111,9 @@ def flickrApiGetInfo(request, photo_id):
             'nojsoncallback': 1
         }
     )
-    return HttpResponse(response, content_type='application/json')
+    photo_description = response.json().pop('photo').pop('description').pop('_content')
+    photo_description_sanitized = json.dumps(photo_description, indent = 4)
+    return HttpResponse(photo_description_sanitized, content_type='application/json')
 
 def bloggerApiGetLatestPost(request):
     blogger_apiv3 = get_secret('blogger_apiv3')
