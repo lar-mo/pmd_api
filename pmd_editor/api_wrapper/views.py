@@ -126,9 +126,12 @@ def flickrApiGetInfo(request, photo_id):
             'nojsoncallback': 1
         }
     )
-    photo_description = response.json().pop('photo').pop('description').pop('_content')
-    photo_description_sanitized = json.dumps(photo_description, indent = 4)
-    return HttpResponse(photo_description_sanitized, content_type='application/json')
+    photo_info = response.json().pop('photo')
+    photo_title = photo_info['title']['_content']
+    photo_desc = photo_info['description']['_content']
+    photo_title_desc = {"photo": {"title": photo_title, "description": photo_desc }}
+    photo_title_desc_sanitized = json.dumps(photo_title_desc, indent = 4)
+    return HttpResponse(photo_title_desc_sanitized, content_type='application/json')
 
 def bloggerApiGetLatestPost(request):
     blogger_apiv3 = get_secret('blogger_apiv3')
