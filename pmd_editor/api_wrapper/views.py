@@ -82,7 +82,6 @@ def flickrApiGetContainers(request):
             'extras': 'date_upload'
         }
     )
-    print(response.json())
     containers_json = response.json().pop('photoset').pop('photo')
     containers_ids = [ containers_json[i].pop('id') for i in range(len(containers_json)) ]
     containers_json_sanitized = json.dumps(containers_ids, indent = 4)
@@ -99,7 +98,22 @@ def flickrApiGetSizes(request, photo_id):
             'nojsoncallback': 1
         }
     )
-    return HttpResponse(response, content_type='application/json')
+    sizes_json = response.json().pop('sizes').pop('size')
+    for i in range(len(sizes_json)):
+        if sizes_json[i]['label'] == 'Small':
+            thumb = {
+                'url': sizes_json[i]['source'],
+                'width': sizes_json[i]['width'],
+                'height': sizes_json[i]['height'],
+            }
+    full = {
+        'url': sizes_json[-1]['source'],
+        'width': sizes_json[-1]['width'],
+        'height': sizes_json[-1]['height'],
+    }
+    thumb_and_full = {'thumb': thumb, 'full': full}
+    sizes_json_sanitized = json.dumps(thumb_and_full, indent = 4)
+    return HttpResponse(sizes_json_sanitized, content_type='application/json')
 
 def flickrApiGetInfo(request, photo_id):
     flickr_api_key = get_secret('flickr_api_key')
