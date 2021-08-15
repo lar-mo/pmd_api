@@ -45,9 +45,9 @@ def pmdv3ProdGetStrings(request):
     return HttpResponse(response, content_type='application/json')
 
 def flickrApiGetArrangements(request):
-    flickr_user_id = get_secret('my_flickr_user_id')
-    flickr_arrangements_photoset_id = get_secret('my_flickr_arrangements_photoset_id')
-    flickr_api_key = get_secret('my_flickr_api_key')
+    flickr_user_id = get_secret('flickr_user_id')
+    flickr_arrangements_photoset_id = get_secret('flickr_arrangements_photoset_id')
+    flickr_api_key = get_secret('flickr_api_key')
     response = requests.get('https://api.flickr.com/services/rest/?',
         params = {
             'method': 'flickr.photosets.getPhotos',
@@ -68,9 +68,9 @@ def flickrApiGetArrangements(request):
     # return HttpResponse(response, content_type='application/json') # OG: returns everything including sensitive data
 
 def flickrApiGetContainers(request):
-    flickr_user_id = get_secret('my_flickr_user_id')
-    flickr_containers_photoset_id = get_secret('my_flickr_containers_photoset_id')
-    flickr_api_key = get_secret('my_flickr_api_key')
+    flickr_user_id = get_secret('flickr_user_id')
+    flickr_containers_photoset_id = get_secret('flickr_containers_photoset_id')
+    flickr_api_key = get_secret('flickr_api_key')
     response = requests.get('https://api.flickr.com/services/rest/?',
         params = {
             'method': 'flickr.photosets.getPhotos',
@@ -82,13 +82,14 @@ def flickrApiGetContainers(request):
             'extras': 'date_upload'
         }
     )
+    print(response.json())
     containers_json = response.json().pop('photoset').pop('photo')
     containers_ids = [ containers_json[i].pop('id') for i in range(len(containers_json)) ]
     containers_json_sanitized = json.dumps(containers_ids, indent = 4)
     return HttpResponse(containers_json_sanitized, content_type='application/json')
 
 def flickrApiGetSizes(request, photo_id):
-    flickr_api_key = get_secret('my_flickr_api_key')
+    flickr_api_key = get_secret('flickr_api_key')
     response = requests.get('https://api.flickr.com/services/rest/?',
         params = {
             'method': 'flickr.photos.getSizes',
@@ -101,7 +102,7 @@ def flickrApiGetSizes(request, photo_id):
     return HttpResponse(response, content_type='application/json')
 
 def flickrApiGetInfo(request, photo_id):
-    flickr_api_key = get_secret('my_flickr_api_key')
+    flickr_api_key = get_secret('flickr_api_key')
     response = requests.get('https://api.flickr.com/services/rest/?',
         params = {
             'method': 'flickr.photos.getInfo',
