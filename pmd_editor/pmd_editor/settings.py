@@ -37,13 +37,15 @@ SECRET_KEY = get_secret('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True # set to False before commiting
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 ## https://dzone.com/articles/how-to-fix-django-cors-error
 ## Option A:
 # ALLOWED_HOSTS=['*']
 # CORS_ORIGIN_ALLOW_ALL = True
 
 ## Option B:
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','.pattymdesigns.com','.pattymcmahan.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','.pattymdesigns.com','.pattymcmahan.com','192.168.1.82']
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (

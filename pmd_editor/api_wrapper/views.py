@@ -144,7 +144,6 @@ def bloggerApiGetLatestPost(request):
             'orderBy': 'PUBLISHED',
         }
     )
-    # post_published = response.json().
     post_info_json = response.json().pop('items')
     post_published = post_info_json[0]['published']
     post_url = post_info_json[0]['url']
