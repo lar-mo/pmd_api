@@ -117,25 +117,25 @@ WSGI_APPLICATION = 'pmd_editor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'OPTIONS': {
-#           'sql_mode': 'STRICT_ALL_TABLES',
-#         },
-#         'NAME': get_secret('MYSQL_DB'),
-#         'HOST': get_secret('MYSQL_HOST'),
-#         'PORT': '3306',
-#         'USER': get_secret('MYSQL_USER'),
-#         'PASSWORD': get_secret('MYSQL_PWD')
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+          'sql_mode': 'STRICT_ALL_TABLES',
+        },
+        'NAME': get_secret('MYSQL_DB'),
+        'HOST': get_secret('MYSQL_HOST'),
+        'PORT': '3306',
+        'USER': get_secret('MYSQL_USER'),
+        'PASSWORD': get_secret('MYSQL_PWD')
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

@@ -1,0 +1,24 @@
+[Unit]
+Description=Patty M Designs API (Gunicorn)
+After=network.target
+
+[Service]
+Type=notify
+# the specific user that our service will run as
+User=lar_mo
+Group=www-data
+# the path to your project directory
+WorkingDirectory=/home/lar_mo/api.pattymdesigns.com/pmd_editor
+# the path to your virtualenv
+Environment="PATH=/home/lar_mo/api.pattymdesigns.com/venv/bin"
+# the command to start gunicorn
+ExecStart=/home/lar_mo/api.pattymdesigns.com/venv/bin/gunicorn \
+          --config /home/lar_mo/api.pattymdesigns.com/pmd_editor/deployment/gunicorn.conf.py \
+          pmd_editor.wsgi:application
+
+# Restart on failure
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
