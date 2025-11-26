@@ -106,15 +106,22 @@ Or from your local machine:
 curl http://YOUR_VPS_IP:8000
 ```
 
-## Step 8: Configure Domain & SSL
+## Step 8: Configure Dreamhost Proxy Server ⚠️ CRITICAL STEP
 
-You'll need to contact Dreamhost support or use their control panel to:
+**This is the key step that connects your domain to your running application!**
 
-1. Point `api.pattymdesigns.com` to run your application on port 8000
-2. Set up SSL certificate for `api.pattymdesigns.com`
-3. Configure Nginx to proxy to your Gunicorn server
+1. Log into **Dreamhost Panel**
+2. Go to: **Servers → VPS → Proxy Server**
+3. Click **"Add Proxy Server"**
+4. Configure:
+   - **Domain**: `api.pattymdesigns.com`
+   - **Port**: `8001` (or your chosen port)
+5. Click **"Add Proxy Now"**
+6. Wait for installation to complete (5-15 minutes)
 
-Alternatively, if you have access to Nginx config, create a reverse proxy configuration.
+Once complete, your API will be accessible at `https://api.pattymdesigns.com`
+
+SSL is automatically provided by Dreamhost.
 
 ## Done! 🎉
 
