@@ -241,6 +241,53 @@ python manage.py migrate
 ./restart_server.sh
 ```
 
+## Important: Worker Configuration for Self-Calling APIs
+
+**⚠️ Critical for APIs that call themselves internally!**
+
+If your API has wrapper endpoints that call internal endpoints on localhost (e.g., `/wrapper/pmdv3ProdGetStrings/` calls `http://localhost:8001/strings/v3/`), you **must use 2 or more workers**.
+
+### The Problem: Deadlock with 1 Worker
+```python
+workers = 1  # ❌ BAD - causes deadlock
+```
+
+With only 1 worker:
+1. Worker receives wrapper request
+2. Worker tries to call localhost:8001 (itself)
+3. **Deadlock!** Worker is waiting for itself to respond
+4. Result: Worker timeout → 502/500 errors
+
+### The Solution: Multiple Workers
+```python
+workers = 2  # ✅ GOOD - no deadlock
+```
+
+With 2+ workers:
+1. Worker 1 receives wrapper request
+2. Worker 1 calls localhost:8001
+3. Worker 2 handles the internal request
+4. Success!
+
+**Symptoms of this issue:**
+- Worker timeout errors in logs
+- 502 Proxy Error from Dreamhost
+- 500 Internal Server Error
+- Works fine when tested in Django shell
+- Happens only on wrapper endpoints that self-call
+
+**Quick fix:**
+```bash
+# Edit gunicorn config
+nano deployment/gunicorn_simple.conf.py
+
+# Change workers from 1 to 2 (or more)
+workers = 2
+
+# Restart
+./deployment/restart_server.sh
+```
+
 ## Troubleshooting
 
 ### Port Already in Use
